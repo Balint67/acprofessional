@@ -19,11 +19,4 @@ szolgáltatások:
 
 
 Javítani valók:
-kis képeket kivenni
-Rólam: Kép+szöveg rendezése , 2 random kép eltüntetése
-Kapcsolat: Kép kicserélése az egyik random képre
-Kapcsolat: ha kitöltjük a mezőt akkor tényleg küldjön egy email-t egy  rövid üzenetteliu
-
-
-Jv:
-Főoldal: telefonos nézet kép és szöveg rendezése
+telefonos nézetben a felső sáv tartalmát középre igazítani
