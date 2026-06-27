@@ -7,7 +7,7 @@
     <title>Kapcsolat | Csap Ágnes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,6 +26,10 @@
             <a href="szolgaltatasok.html">Szolgáltatások</a>
             <a class="active" href="kapcsolat.html">Kapcsolat</a>
         </div>
+        <div class="language-switcher" aria-label="Nyelvválasztás">
+            <button type="button" class="active" data-lang="hu" aria-pressed="true">HU</button>
+            <button type="button" data-lang="it" aria-pressed="false">IT</button>
+        </div>
         <a class="nav-cta" href="kapcsolat.html">Ajánlatkérés</a>
     </nav>
 </header>
@@ -35,7 +39,7 @@
         <div class="container page-hero-grid">
             <div>
                 <p class="eyebrow">Kapcsolat</p>
-                <h1>Kezdjük egy rövid, célzott egyeztetéssel.</h1>
+                <h1>Kezdjük egy célzott egyeztetéssel.</h1>
                 <p class="lead">Írd meg, milyen olasz-magyar kommunikációs helyzethez keresel támogatást: tárgyalás, fordítás, kiállítás, partnerkapcsolat vagy üzleti koordináció.</p>
             </div>
             <div class="contact-image-card">
@@ -44,19 +48,48 @@
         </div>
     </section>
 
-    <section class="section contact-section">
-        <div class="container contact-grid">
-            <div class="contact-panel">
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-section-header">
                 <p class="eyebrow">Elérhetőség</p>
-                <h2>Ajánlatkéréshez add meg a fő részleteket</h2>
-                <p>A kapcsolatfelvételi adatok később ide illeszthetők. A mezők most vizuális és tartalmi helyet adnak a végleges információknak.</p>
-                <div class="contact-info-list">
-                    <div><span>Email</span><strong>Kapcsolati email helye</strong></div>
-                    <div><span>Telefon</span><strong>Telefonszám helye</strong></div>
-                    <div><span>Nyelvek</span><strong>Magyar, olasz</strong></div>
-                </div>
+                <h2>Kezdjük egy célzott egyeztetéssel.</h2>
+                <p>Írd meg röviden, milyen olasz-magyar kommunikációs helyzethez keresel támogatást, és hamarosan felvesszük veled a kapcsolatot.</p>
             </div>
-            <form class="contact-form" action="https://formspree.io/f/mgojekoa" method="post">
+
+            <div class="contact-card-grid">
+                <aside class="contact-card contact-info-card" aria-label="Kapcsolati információk">
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <span class="contact-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" focusable="false"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                            </span>
+                            <div>
+                                <span>Email</span>
+                                <strong>Kapcsolati email helye</strong>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.63 2.61a2 2 0 0 1-.45 2.11L8.03 9.7a16 16 0 0 0 6.27 6.27l1.26-1.26a2 2 0 0 1 2.11-.45c.84.3 1.71.51 2.61.63A2 2 0 0 1 22 16.92z"></path></svg>
+                            </span>
+                            <div>
+                                <span>Telefon</span>
+                                <strong>Telefonszám helye</strong>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" focusable="false"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+                            </span>
+                            <div>
+                                <span>Nyelvek</span>
+                                <strong>Magyar, olasz</strong>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <form class="contact-card contact-form" action="https://formspree.io/f/mgojekoa" method="post">
                 <input type="hidden" name="_subject" value="Új üzenet az Csap Ágnes weboldalról">
                 <label>Név<input type="text" name="name" placeholder="Teljes név" required></label>
                 <label>Email<input type="email" name="email" placeholder="email@ceg.hu" required></label>
@@ -70,7 +103,8 @@
                         <a class="btn btn-secondary btn-small" href="mailto:meszarosbalintpeter@gmail.com?subject=Ajánlatkérés a weboldalról">Írok más levelezőben</a>
                     </div>
                 </div>
-            </form>
+                </form>
+            </div>
         </div>
     </section>
 </main>
@@ -82,6 +116,7 @@
     </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script>
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
