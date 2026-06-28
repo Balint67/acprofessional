@@ -284,6 +284,41 @@ h1 {
     line-height: 1.08;
 }
 
+/* MAGASABB SZÉLESEBB HERO SZEKCIÓ, LENTI ELVÁLASZTÓ VONALLAL */
+.contact-hero {
+    background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(244, 246, 248, 0.35) 100%
+    ), url('../images/kapcsolatokbg.jpg');
+    background-size: cover;
+    background-position: center 50%; /* Tökéletes középpontosítás, hogy az alja is jobban látszódjon */
+    text-align: center;
+    padding: 210px 0; /* Megnövelt függőleges térköz, ami lefelé tolja az elválasztóvonalat */
+    border-bottom: 1px solid var(--line);
+}
+
+.contact-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-hero h1 {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--blue-950);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.85), 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.contact-hero .lead {
+    margin-left: auto;
+    margin-right: auto;
+    color: #111827;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+}
+
 h2 {
     margin-bottom: 18px;
     color: #101828;
@@ -768,13 +803,12 @@ blockquote {
     font-size: 1rem;
 }
 
-.contact-card-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 44px;
-    align-items: stretch;
-    max-width: 1040px;
+.contact-centered-wrapper {
+    max-width: 640px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 .contact-card {
@@ -784,51 +818,39 @@ blockquote {
     box-shadow: 0 22px 58px rgba(20, 33, 61, 0.08);
 }
 
-.contact-info-card,
 .contact-form {
-    padding: 36px;
-}
-
-.contact-info-card {
-    display: grid;
-    align-content: center;
-}
-
-.contact-info-list,
-.contact-form {
+    padding: 48px;
     display: grid;
     gap: 20px;
 }
 
-.contact-info-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px;
-    align-items: start;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--line);
+.contact-horizontal-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 8px 0;
 }
 
-.contact-info-item:first-child {
-    padding-top: 0;
+.contact-info-inline-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
 }
 
-.contact-info-item:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-}
-
-.contact-icon {
-    width: 42px;
-    height: 42px;
+.contact-inline-icon {
+    width: 44px;
+    height: 44px;
     display: inline-grid;
     place-items: center;
     border-radius: 12px;
     color: var(--blue-800);
     background: var(--soft-blue);
+    flex-shrink: 0;
 }
 
-.contact-icon svg {
+.contact-inline-icon svg {
     width: 20px;
     height: 20px;
     fill: none;
@@ -838,22 +860,21 @@ blockquote {
     stroke-linejoin: round;
 }
 
-.contact-info-item span:not(.contact-icon),
-.contact-info-item strong {
+.contact-inline-text span {
     display: block;
-}
-
-.contact-info-item span:not(.contact-icon) {
-    margin-bottom: 4px;
+    margin-bottom: 1px;
     color: var(--muted);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.contact-info-item strong {
+.contact-inline-text strong {
+    display: block;
     color: #172036;
-    font-size: 1rem;
-    line-height: 1.35;
+    font-size: 0.95rem;
+    line-height: 1.3;
 }
 
 .contact-form label {
@@ -974,8 +995,8 @@ blockquote {
 
     .nav-links {
         order: 3;
-        width: calc(100% - 120px);
-        justify-content: flex-start;
+        width: 100%;
+        justify-content: center;
         overflow-x: auto;
     }
 
@@ -992,7 +1013,6 @@ blockquote {
     .process-panel,
     .cta-inner,
     .contact-grid,
-    .contact-card-grid,
     .testimonial-layout {
         grid-template-columns: 1fr;
     }
@@ -1016,8 +1036,9 @@ blockquote {
         padding: 70px 0;
     }
 
-    .hero {
-        padding-top: 76px;
+    /* Mobilnézetben a kép kicsit kisebb magasságot kap, hogy ne legyen túl hosszú a görgetés */
+    .contact-hero {
+        padding: 110px 0;
     }
 
     .navbar {
@@ -1116,8 +1137,10 @@ blockquote {
     .side-panel,
     .services-intro-card,
     .testimonial-card,
-    .contact-panel,
-    .contact-info-card,
+    .contact-panel {
+        padding: 28px;
+    }
+
     .contact-form {
         padding: 28px;
     }
@@ -1126,12 +1149,11 @@ blockquote {
         padding: 70px 0;
     }
 
-    .contact-card-grid {
-        gap: 24px;
-    }
-
-    .contact-info-card {
-        align-content: start;
+    .contact-horizontal-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding-left: 10px;
     }
 
     .service-accordion summary {
@@ -1188,6 +1210,7 @@ blockquote {
         width: 100%;
         gap: 3px;
         padding: 5px;
+        justify-content: center;
     }
 
     .language-switcher {

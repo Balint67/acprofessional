@@ -19,4 +19,6 @@ szolgáltatások:
 
 
 Javítani valók:
-telefonos nézetben a felső sáv tartalmát középre igazítani
+- Rólam, Szolgáltatások, Kapcsolat: megoldani azt hogy ne legyen ilyen üres a title rész
+- email cserélése az üzenet küldés résznél
+- domain név
