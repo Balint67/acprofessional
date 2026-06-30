@@ -28,7 +28,7 @@
         "Gyors, pontos, professzionális kommunikáció": "Comunicazione rapida, precisa e professionale",
         "Bemutatkozás": "Presentazione",
         "Partner az üzleti kapcsolatokban": "Partner per le relazioni aziendali",
-        "Csap Ágnes vagyok, olasz-magyar tolmács, fordító és social media marketing szakember. Több mint tíz éve segítem az olasz és magyar vállalkozások közötti gördülékeny kommunikációt, legyen szó üzleti tárgyalásról, kiállítási jelenlétről vagy marketinganyagokról.": "Sono Csap Ágnes, interprete e traduttrice italo-ungherese e specialista in social media marketing. Da oltre dieci anni facilito la comunicazione tra aziende italiane e ungheresi, dalle trattative commerciali alla presenza in fiera fino ai materiali di marketing.",
+        "Csap Ágnes vagyok, olasz-magyar tolmács, fordító és social media marketing szakember. Több mint 20 éve segítem az olasz és magyar vállalkozások közötti gördülékeny kommunikációt, legyen szó üzleti tárgyalásról, kiállítási jelenlétről vagy marketinganyagokról.": "Sono Csap Ágnes, interprete e traduttrice italo-ungherese e specialista in social media marketing. Da oltre 20 anni facilito la comunicazione tra aziende italiane e ungheresi, dalle trattative commerciali alla presenza in fiera fino ai materiali di marketing.",
         "Szenvedélyem az olasz nyelv és kultúra, valamint az olyan együttműködések kialakítása, amelyek mindkét fél számára értéket teremtenek.": "La mia passione per la lingua e la cultura italiana si unisce alla costruzione di collaborazioni che creano valore per entrambe le parti.",
         "Kommunikációs támogatás egy kézből": "Supporto alla comunicazione in un unico servizio",
         "Megbízható nyelvi és üzleti háttér, amikor pontos egyeztetésre, gyors reakciókra és tiszta folyamatokra van szükség.": "Un supporto linguistico e aziendale affidabile quando servono coordinamento preciso, risposte rapide e processi chiari.",
@@ -47,7 +47,7 @@
         "Tiszta, pontos olasz-magyar kommunikáció.": "Comunicazione chiara e precisa.",
 
         "Olasz háttér, üzleti szemlélet.": "Competenza italiana e visione aziendale.",
-        "Csap Ágnes - olasz-magyar tolmács, fordító és social media marketing szakember. Több mint egy évtizede segítem az olasz és magyar vállalkozások közötti gördülékeny kommunikációt és üzleti együttműködést.": "Csap Ágnes - interprete e traduttrice italo-ungherese, specialista in social media marketing. Da oltre un decennio aiuto aziende italiane e ungheresi a comunicare e collaborare con fluidità.",
+        "Csap Ágnes - olasz-magyar tolmács, fordító és social media marketing szakember. Több mint 20 éve segítem az olasz és magyar vállalkozások közötti gördülékeny kommunikációt és üzleti együttműködést.": "Csap Ágnes - interprete e traduttrice italo-ungherese, specialista in social media marketing. Da oltre 20 anni aiuto aziende italiane e ungheresi a comunicare e collaborare con fluidità.",
         "Olasz nyelvi és kulturális háttér, üzleti tapasztalat és gyakorlati koordináció egy szolgáltatásban.": "Competenza linguistica e culturale italiana, esperienza aziendale e coordinamento pratico in un unico servizio.",
         "Küldetés": "Missione",
         "Olasz-magyar kapcsolatok erősítése": "Rafforzare le relazioni italo-ungheresi",
@@ -135,11 +135,41 @@
 
     const translatableAttributes = ["aria-label", "alt", "placeholder", "value", "content", "title"];
     const languageButtons = () => Array.from(document.querySelectorAll("[data-lang]"));
+    const supportedLanguages = new Set(["hu", "it"]);
+    const normalizedTranslations = new Map(
+        Object.entries(translations).map(([key, value]) => [normalizeKey(key), value])
+    );
+
+    function normalizeKey(value) {
+        return value.replace(/\s+/g, " ").trim();
+    }
+
+    function getRequestedLanguage() {
+        const params = new URLSearchParams(window.location.search);
+        const urlLanguage = params.get("lang");
+        if (supportedLanguages.has(urlLanguage)) {
+            return urlLanguage;
+        }
+        const savedLanguage = localStorage.getItem("siteLanguage");
+        return supportedLanguages.has(savedLanguage) ? savedLanguage : "hu";
+    }
+
+    function persistLanguage(lang) {
+        localStorage.setItem("siteLanguage", lang);
+
+        const url = new URL(window.location.href);
+        if (lang === "hu") {
+            url.searchParams.delete("lang");
+        } else {
+            url.searchParams.set("lang", lang);
+        }
+        window.history.replaceState({}, "", url);
+    }
 
     function translateString(value, lang) {
         const trimmed = value.trim();
         if (!trimmed) return value;
-        const translated = lang === "it" ? translations[trimmed] : trimmed;
+        const translated = lang === "it" ? normalizedTranslations.get(normalizeKey(trimmed)) : trimmed;
         if (!translated) return value;
         return value.replace(trimmed, translated);
     }
@@ -194,15 +224,17 @@
 
     function initLanguageSwitcher() {
         document.body.dataset.originalTitle = document.title;
-        const savedLanguage = localStorage.getItem("siteLanguage") || "hu";
+        const savedLanguage = getRequestedLanguage();
 
         languageButtons().forEach((button) => {
             button.addEventListener("click", () => {
-                localStorage.setItem("siteLanguage", button.dataset.lang);
-                translatePage(button.dataset.lang);
+                const nextLanguage = supportedLanguages.has(button.dataset.lang) ? button.dataset.lang : "hu";
+                persistLanguage(nextLanguage);
+                translatePage(nextLanguage);
             });
         });
 
+        persistLanguage(savedLanguage);
         translatePage(savedLanguage);
 
         const observer = new MutationObserver(() => {
